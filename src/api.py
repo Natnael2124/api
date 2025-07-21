@@ -1,20 +1,25 @@
 import requests
 
 def main():
-    print("search the art institute of chicago")
-    artist = input("enter an artist name: ")
+    artwork = input("enter an artwork name: ")
+    artworks = get_artworks(query=artwork,limit=3)
+    for artwork in artworks:
+        print(f"*{artwork}")
+
+
+def get_artworks(query,limit):
     try:
         response = requests.get(
             "https://api.artic.edu./api/v1/artworks/search",
-            {"q":artist}
+            {"q":query,"limit":limit}
             )
         response.raise_for_status()
-    except HTTPError:
+        content = response.json()
+        return [artwork["title"] for artwork in content["data"]]
+    except requests.HTTPError:
         print("couldn't complete the request") 
         return
-    content = response.json()
-    for artwork in content["data"]:
-        print(f"{artwork['title']}")
+
     
 
 main()
