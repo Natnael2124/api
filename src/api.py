@@ -1,10 +1,10 @@
-from artwork import get_artworks
+from museme.artists import get_artists
 
 def main():
-    artwork = input("enter an artwork name: ")
-    artworks = get_artworks(query=artwork,limit=3)
-    for artwork in artworks:
-        print(f"*{artwork}")
+    artist = input("enter an artist name: ")
+    artists = get_artists(query=artist,limit=3)
+    for artist in artists:
+        print(f"*{artist}")
 
 
 
